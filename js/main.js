@@ -1,1 +1,1 @@
-
+$('#parallax-hello').parallax();

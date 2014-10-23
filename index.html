@@ -9,7 +9,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style>
             body {
@@ -19,17 +19,7 @@
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
-
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-55910264-1', 'auto');
-          ga('send', 'pageview');
-        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -70,7 +60,22 @@
         <!-- <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p> -->
       </div>
     </div>
-
+<div class="container parallax-bg">
+  <ul id="parallax-hello">
+      <li class="layer" data-depth="0.80">H</li>
+      <li class="layer" data-depth="0.20">E</li>
+      <li class="layer" data-depth="1.00">L</li>
+      <li class="layer" data-depth="0.60">L</li>
+      <li class="layer" data-depth="0.40">O</li>
+      <li class="layer" data-depth="0.00">,</li>
+      <li class="layer" data-depth="0.80">W</li>
+      <li class="layer" data-depth="0.50">O</li>
+      <li class="layer" data-depth="0.10">R</li>
+      <li class="layer" data-depth="0.90">L</li>
+      <li class="layer" data-depth="0.70">D</li>
+      <li class="layer" data-depth="0.30">!</li>
+  </ul>
+</div>
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
@@ -96,21 +101,20 @@
       <footer>
         <p>&copy; Company 2014</p>
       </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </div> <!-- /container -->        
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
-
         <script src="js/vendor/bootstrap.min.js"></script>
-
+        <script src="js/jquery.parallax.js"></script>
         <script src="js/main.js"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-55910264-1', 'auto');
+          ga('send', 'pageview');
         </script>
     </body>
 </html>
