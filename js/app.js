@@ -50,40 +50,6 @@
        });
     }
 
-    // Revolution Slider
-    $('.tp-banner').revolution({
-      delay: 9000,
-      startwidth: 1170,
-      hideCaptionAtLimit: 767,
-      fullScreen: "on",
-      hideTimerBar: "on",
-      hideArrowsOnMobile: "on",
-      navigationStyle: "preview4",
-      spinner: "spinner4"
-    });
-
-    $('.tp-banner-2').revolution({
-      delay: 9000,
-      startwidth: 1170,
-      hideCaptionAtLimit: 767,
-      parallax: "scroll",
-      parallaxBgFreeze: "off",
-      parallaxLevels: [1,5,10],
-      hideTimerBar: "on",
-      hideArrowsOnMobile: "on",
-      navigationStyle: "preview4",
-      spinner: "spinner4"
-    });
-
-    $('.tp-banner-3').revolution({
-      startheight: 700,
-      hideCaptionAtLimit: 767,
-      hideTimerBar: "on",
-      hideArrowsOnMobile: "on",
-      navigationStyle: "preview4",
-      spinner: "spinner4"
-    });
-
     /* Form submission code */
     // Get the form.
     var form = $('#theme-contact');
@@ -129,59 +95,3 @@
   });
   
 })(jQuery);
-
-jQuery(window).load(function() {
-  "use strict";
-
-  // Google Maps Goodness
-  if (document.getElementById('map_canvas')) {
-    
-    var gLatitude = 40.787278;
-    var gLongitude = -73.969722;
-    var gZoom = 13;
-    var gTitle = 'Ruler';
-    var gDescription = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
-      
-    var latlng = new google.maps.LatLng(gLatitude, gLongitude);
-    
-    var settings = {
-      zoom: parseInt(gZoom),
-      center: latlng,
-      scrollwheel: false,
-      mapTypeControl: true,
-      mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-      navigationControl: true,
-      navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    
-    var map = new google.maps.Map(document.getElementById("map_canvas"), settings);
-    
-    var companyLogo = new google.maps.MarkerImage('img/google-maps/marker-flat.png',
-                                                  new google.maps.Size(40,40),
-                                                  new google.maps.Point(0,0),
-                                                  new google.maps.Point(20,40));
-    
-    var companyMarker = new google.maps.Marker({
-      position: latlng,
-           map: map,
-          icon: companyLogo,
-         title: gTitle
-    });
-    
-    var contentString = '<div id="content-map">'+
-                          '<h3>' + gTitle + '</h3>'+
-                          '<p>' + gDescription + '</p>'+
-                        '</div>';
-    
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-    
-    google.maps.event.addListener(companyMarker, 'click', function() {
-      infowindow.open(map,companyMarker);
-    });
-  
-  }
-
-});

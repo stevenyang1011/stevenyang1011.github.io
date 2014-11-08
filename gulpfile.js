@@ -9,7 +9,7 @@ var
 // CSS
 gulp.task('css', function() {
     var stream = gulp
-        .src('less/main.less')
+        .src('less/style.less')
         .pipe(plumber({
             errorHandler: notify.onError(function (error) {
                 return 'Error compiling LESS: ' + error.message;
@@ -33,7 +33,7 @@ gulp.task('default', function() {
 // Watch
 gulp.task('watch', function() {
     // Watch .less files
-    gulp.watch('less/main.less', ['css']);
+    gulp.watch('less/style.less', ['css']);
 
     livereload.listen();
     gulp.watch(['css/**/*']).on('change', livereload.changed);
