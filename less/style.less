@@ -743,9 +743,9 @@ body {
 /************************ Highlighted ************************/
 /*************************************************************/
 
-.highlighted-image {
-  height: 500px;
-}
+// .highlighted-image {
+//   height: 500px;
+// }
 
 
 
@@ -1501,6 +1501,11 @@ input[type="number"] {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    bottom: -100px;
+    position: absolute;
+    width: 150%;
+    left: -25%;
+    top: -25%;
 }
 .bg-audio-mixer {
     background: url('../img/bg-audio-mixer.jpg') scroll center no-repeat;
@@ -1758,7 +1763,7 @@ a {
 /** Background Colors **/
 .bg-color-theme { background-color: #19B5FE; }
 
-/******* customer ******/
+/******* custom ******/
 header #logo h1{
     color: #19B5FE;
     line-height: 80px;
@@ -1769,9 +1774,36 @@ header #logo h1{
 }
 
 #highlighted {
-    .text-color-theme{
-        h2,p{
-            color: #19B5FE;
-        }
-    }
+  overflow: hidden;
+  display: table;
+  min-height: 600px;
+  width: 100%;
+  left: 0;
+  top: 0;
+  h2{
+    color: #19B5FE;
+    text-shadow: 0 8px 6px rgba(0, 0, 0, 0.6);
+    position: absolute;
+    width: 100%;
+    top: 42%;
+    text-align: center;
+  }
+  p{
+      color: #19B5FE;
+  }
+}
+.scene {
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+.layer {
+  position: absolute;
+}
+.scene, .layer {
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
