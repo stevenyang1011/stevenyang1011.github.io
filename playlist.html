@@ -35,7 +35,7 @@
           <div class="col-xs-6" id="logo">
             <a href="index.html">
               <!-- <img class="img-responsive" src="logo.png" alt="logo" title="logo"> -->
-              <h1>Blog</h1>
+              <h1>Playlist</h1>
             </a>
           </div> <!-- /logo -->
 
@@ -48,8 +48,29 @@
     </header>
 
     <div class="bg-audio-mixer region blog-title" id="highlighted">
+      <div class="overlay">
+        <div class="container block text-center text-color-theme ">
+          <h2>Hope you like my playlist</h2>
+        </div> <!-- /container -->
+      </div>
+    </div> <!-- /highlighted -->
+
+    <div class="region" id="player">
       <div class="container block text-center text-color-theme">
-        <h2>Blog?</h2>
+        <h2>Hope you like my playlist</h2>
+        <div class="player-wrapper">
+          <div class="col-sm-2" id="song-order" data-count="0">1</div>
+          <div class="col-sm-6">
+            <div id="song-title"></div>
+            <div id="song-artist"></div>
+          </div>
+          <img class="col-sm-4" id="song-pic"></img>
+          <div class="col-xs-12 buttons-wrapper">
+            <button id="song-prev">Prev</button>
+            <button id="song-next">Next</button>
+          </div>
+          <audio id="song" class="col-xs-12" controls src="">Your browser does not support the audio element.</audio>
+        </div>
       </div> <!-- /container -->
     </div> <!-- /highlighted -->
 
@@ -74,6 +95,40 @@
     <script src="js/venobox.min.js"></script>
     <!-- Theme JS -->
     <script src="js/app.js"></script>
+    <script src="js/xiami.js"></script>
+    <script type="text/javascript">
+      var songIdList = [1773564998, 1773491412, 1773602881, 1773568459, 1773419498];
+      var switchSong = function(order){
+        songId = songIdList[order];
+        getXiami(songId, function(cb){
+          console.log(cb);
+          $('#song-title').html(cb.title);
+          $('#song-album').html(cb.album_name);
+          $('#song-artist').html(cb.artist);
+          $('#song-pic').attr('src', cb.pic);
+          $('#song').attr('src', cb.url);
+        });
+      };
+      $('#song-prev').click(function(){
+        if ($('#song-order').data('count') > 0){
+          $('#song-order').data('count', $('#song-order').data('count')-1);
+        } else {
+          $('#song-order').data('count', songIdList.length-1);
+        }
+        $('#song-order').html($('#song-order').data('count')+1);
+        switchSong($('#song-order').data('count'));
+      });      
+      $('#song-next').click(function(){
+        if ($('#song-order').data('count') < songIdList.length-1){
+          $('#song-order').data('count', $('#song-order').data('count')+1);
+        } else {
+          $('#song-order').data('count', 0);
+        }
+        $('#song-order').html($('#song-order').data('count')+1);
+        switchSong($('#song-order').data('count'));
+      });
+      switchSong(0);
+    </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
