@@ -47,31 +47,25 @@
       </div> <!-- container -->
     </header>
 
-    <div class="bg-audio-mixer region blog-title" id="highlighted">
-      <div class="overlay">
-        <div class="container block text-center text-color-theme ">
+    <div class="bg-audio-mixer" id="player">
+      <div class="playlist-overlay region">
+        <div class="container text-center text-color-theme">
           <h2>Hope you like my playlist</h2>
+          <div class="player-wrapper">
+            <div class="col-sm-2" id="song-order" data-count="0">1</div>
+            <div class="col-sm-6">
+              <div id="song-title"></div>
+              <div id="song-artist"></div>
+            </div>
+            <img class="col-sm-4" id="song-pic"></img>
+            <div class="col-xs-12 buttons-wrapper">
+              <button id="song-prev">Prev</button>
+              <button id="song-next">Next</button>
+            </div>
+            <audio id="song" class="col-xs-12" controls src="">Your browser does not support the audio element.</audio>
+          </div>
         </div> <!-- /container -->
       </div>
-    </div> <!-- /highlighted -->
-
-    <div class="region" id="player">
-      <div class="container block text-center text-color-theme">
-        <h2>Hope you like my playlist</h2>
-        <div class="player-wrapper">
-          <div class="col-sm-2" id="song-order" data-count="0">1</div>
-          <div class="col-sm-6">
-            <div id="song-title"></div>
-            <div id="song-artist"></div>
-          </div>
-          <img class="col-sm-4" id="song-pic"></img>
-          <div class="col-xs-12 buttons-wrapper">
-            <button id="song-prev">Prev</button>
-            <button id="song-next">Next</button>
-          </div>
-          <audio id="song" class="col-xs-12" controls src="">Your browser does not support the audio element.</audio>
-        </div>
-      </div> <!-- /container -->
     </div> <!-- /highlighted -->
 
     <footer class="region">
@@ -98,7 +92,7 @@
     <script src="js/xiami.js"></script>
     <script type="text/javascript">
       var songIdList = [1773564998, 1773491412, 1773602881, 1773568459, 1773419498];
-      var switchSong = function(order){
+      var switchSong = function(order, autoPlay){
         songId = songIdList[order];
         getXiami(songId, function(cb){
           console.log(cb);
@@ -106,7 +100,11 @@
           $('#song-album').html(cb.album_name);
           $('#song-artist').html(cb.artist);
           $('#song-pic').attr('src', cb.pic);
-          $('#song').attr('src', cb.url);
+          if( !(typeof autoPlay === "undefined") && autoPlay == true){
+            $('#song').attr('src', cb.url).get(0).play();
+          } else {
+            $('#song').attr('src', cb.url);
+          }
         });
       };
       $('#song-prev').click(function(){
@@ -116,7 +114,7 @@
           $('#song-order').data('count', songIdList.length-1);
         }
         $('#song-order').html($('#song-order').data('count')+1);
-        switchSong($('#song-order').data('count'));
+        switchSong($('#song-order').data('count'), true);
       });      
       $('#song-next').click(function(){
         if ($('#song-order').data('count') < songIdList.length-1){
@@ -125,7 +123,7 @@
           $('#song-order').data('count', 0);
         }
         $('#song-order').html($('#song-order').data('count')+1);
-        switchSong($('#song-order').data('count'));
+        switchSong($('#song-order').data('count'), true);
       });
       switchSong(0);
     </script>
