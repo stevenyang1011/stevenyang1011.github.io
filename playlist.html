@@ -50,19 +50,29 @@
     <div class="bg-audio-mixer" id="player">
       <div class="playlist-overlay region">
         <div class="container text-center text-color-theme">
-          <h2>Hope you like my playlist</h2>
-          <div class="player-wrapper">
-            <div class="col-sm-2" id="song-order" data-count="0">1</div>
-            <div class="col-sm-6">
-              <div id="song-title"></div>
-              <div id="song-artist"></div>
+          <h1>Hope you like my playlist.</h1>
+          <p>Feel free to leave a comment at the bottom of the page.</p>
+          <div id="cwrap">
+            <div id="nowPlay">
+              <h4 id="npAction">Paused</h4>
+              <div class="col-sm-6">
+                <div id="npTitle"></div>
+                <div id="npAlbum"></div>
+                <div id="npArtist"></div>
+              </div>
+              <div class="col-sm-6">
+                <img id="npPic" />
+              </div>
             </div>
-            <img class="col-sm-4" id="song-pic"></img>
-            <div class="col-xs-12 buttons-wrapper">
-              <button id="song-prev">Prev</button>
-              <button id="song-next">Next</button>
+            <div id="audiowrap">
+              <div id="audio0">
+                <audio id="audio1" controls="controls">Your browser does not support the HTML5 Audio Tag.</audio>
+              </div>
+              <div id="extraControls">
+                <button id="btnPrev" class="ctrlbtn">|&lt; Prev Track</button> <button id="btnNext" class="ctrlbtn">Next Track &gt;|</button>
+              </div>
             </div>
-            <audio id="song" class="col-xs-12" controls src="">Your browser does not support the audio element.</audio>
+            <div id="plwrap"></div>
           </div>
         </div> <!-- /container -->
       </div>
@@ -107,41 +117,109 @@
     <script src="js/app.js"></script>
     <script src="js/xiami.js"></script>
     <script type="text/javascript">
-      var songIdList = [1773491412, 101280, 1773564998, 1773602881, 1773568459, 1769274363, 72266, 1773419498];
-      var switchSong = function(order, autoPlay){
-        songId = songIdList[order];
-        getXiami(songId, function(cb){
-          console.log(cb);
-          $('#song-title').html(cb.title);
-          $('#song-album').html(cb.album_name);
-          $('#song-artist').html(cb.artist);
-          $('#song-pic').attr('src', cb.pic);
-          if( !(typeof autoPlay === "undefined") && autoPlay == true){
-            $('#song').attr('src', cb.url).get(0).play();
-          } else {
-            $('#song').attr('src', cb.url);
+      var supportsAudio = !!document.createElement('audio').canPlayType;
+        if(supportsAudio) {
+          songIdList = [1773491412, 101280, 1773564998, 1773602881, 1773568459, 1769274363, 72266, 1773419498];
+          var tracks = [];
+          var index = 0,
+          playing = false;
+          trackCount = songIdList.length,
+          npAction = $('#npAction'),
+          npTitle = $('#npTitle'),
+          npAlbum = $('#npAlbum'),
+          npArtist = $('#npArtist'),
+          npPic = $('#npPic'),
+          audio = $('#audio1').bind('play', function() {
+            playing = true;
+            npAction.text('Now Playing');
+          }).bind('pause', function() {
+            playing = false;
+            npAction.text('Paused');
+          }).bind('ended', function() {
+            npAction.text('Paused');
+            if((index + 1) < trackCount) {
+              index++;
+              loadTrack(index);
+              audio.play();
+            } else {
+              audio.pause();
+              index = 0;
+              loadTrack(index);
+            }
+          }).get(0),
+          btnPrev = $('#btnPrev').click(function() {
+            if((index - 1) > -1) {
+              index--;
+              loadTrack(index);
+              if(playing) {
+                audio.play();
+              }
+            } else {
+              audio.pause();
+              index = 0;
+              loadTrack(index);
+            }
+          }),
+          btnNext = $('#btnNext').click(function() {
+            if((index + 1) < trackCount) {
+              index++;
+              loadTrack(index);
+              if(playing) {
+                audio.play();
+              }
+            } else {
+              audio.pause();
+              index = 0;
+              loadTrack(index);
+            }
+          }),
+          loadTrack = function(id) {
+            $('.plSel').removeClass('plSel');
+            $('#plwrap li:eq(' + id + ')').addClass('plSel');
+            npTitle.text(tracks[id].name);
+            npArtist.text(tracks[id].artist);
+            npAlbum.text(tracks[id].album);
+            npPic.attr('src', tracks[id].pic);
+            index = id;
+            audio.src =tracks[id].url;
+          },
+          playTrack = function(id) {
+            loadTrack(id);
+            audio.play();
+          },
+          initPlaylist = function(songIdList, tracks){
+            $.each(songIdList, function(i,v){
+            if (i == 0){
+              $('#plwrap').html('<li data-track="'+i+'" data-song-id="'+v+'"></li>');
+            } else {
+              $( '<li data-track="'+i+'" data-song-id="'+v+'"></li>' ).insertAfter('#plwrap li:last');
+            }
+            getXiami(v, function(cb){
+              console.log(cb);
+              tracks[i] = {
+                "track": i+1,
+                "name": cb.title,
+                "url": cb.url,
+                "album": cb.album_name,
+                "artist": cb.artist,
+                "thumbnail": cb.pic,
+                "pic": cb.album_pic,
+              };
+              if (i == 0){
+                loadTrack(0);
+              }
+              $('#plwrap li[data-song-id="'+v+'"]').html('<a href="javascript:void(0)">'+tracks[i].name+' - '+tracks[i].artist+'</a>');
+            });
+          });
+        };
+        initPlaylist(songIdList, tracks);
+        $('#plwrap').on('click', '#plwrap li a', function() {
+          var id = parseInt($(this).index());
+          if(id !== index){
+            playTrack(id);
           }
         });
-      };
-      $('#song-prev').click(function(){
-        if ($('#song-order').data('count') > 0){
-          $('#song-order').data('count', $('#song-order').data('count')-1);
-        } else {
-          $('#song-order').data('count', songIdList.length-1);
-        }
-        $('#song-order').html($('#song-order').data('count')+1);
-        switchSong($('#song-order').data('count'), true);
-      });      
-      $('#song-next').click(function(){
-        if ($('#song-order').data('count') < songIdList.length-1){
-          $('#song-order').data('count', $('#song-order').data('count')+1);
-        } else {
-          $('#song-order').data('count', 0);
-        }
-        $('#song-order').html($('#song-order').data('count')+1);
-        switchSong($('#song-order').data('count'), true);
-      });
-      switchSong(0);
+      }
     </script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
