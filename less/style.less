@@ -39,6 +39,15 @@
 /*************************************************************/
 /*************************************************************/
 
+//fonts
+@import 'fonts.less';
+.font-quicksand  { font-family: 'Quicksand', sans-serif; }
+.font-roboto     { font-family: 'robotoregular', sans-serif; }
+.font-roboto-medium     { font-family: 'robotomedium', sans-serif; }
+.font-roboto-bold     { font-family: 'robotobold', sans-serif; }
+.font-montserrat { font-family: 'montserratregular', sans-serif; }
+.font-montserrat-bold { font-family: 'montserratbold', sans-serif; }
+
 
 
 /*************************************************************/
@@ -46,9 +55,8 @@
 /*************************************************************/
 
 body {
-  font-family: 'Roboto', sans-serif;
+  .font-roboto();
   font-size: 1.5em;
-  font-weight: 300;
   line-height: 1.5em;
   letter-spacing: 0;
   color: #666;
@@ -77,10 +85,6 @@ a:active {
 /************************* Typography ************************/
 /*************************************************************/
 
-.font-quicksand  { font-family: 'Quicksand', sans-serif; }
-.font-roboto     { font-family: 'Roboto', sans-serif; }
-.font-montserrat { font-family: 'Montserrat', sans-serif; }
-
 h1,
 h2,
 h3,
@@ -88,8 +92,7 @@ h4,
 h5,
 h6 {
   margin: 1.2em 0 1em;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
+  .font-montserrat-bold();
   color: #444;
 }
 
@@ -133,7 +136,7 @@ blockquote {
   padding-top: 0;
   padding-bottom: 0;
   margin: 40px 0;
-  font-family: 'Quicksand', sans-serif;
+  .font-quicksand();
   font-size: 1.5em;
   line-height: 1.5em;
 }
@@ -573,7 +576,7 @@ body {
   margin: 0;
   border: 0;
   font-size: 12px;
-  font-weight: 400;
+  .font-roboto-medium(); 
   text-transform: uppercase;
 }
 
