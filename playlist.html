@@ -48,18 +48,16 @@
     <div class="bg-audio-mixer" id="player">
       <div class="playlist-overlay region">
         <div class="container text-center text-color-theme">
-          <h1>Hope you like my playlist.</h1>
-          <p>Feel free to leave a comment at the bottom of the page.</p>
           <div id="cwrap">
             <div id="nowPlay">
               <h4 id="npAction">Paused</h4>
               <div class="col-sm-6">
-                <div id="npTitle"></div>
-                <div id="npArtist"></div>
-                <div id="npAlbum"></div>
+                <div class="row"><label>Title: </label><div id="npTitle"></div></div>
+                <div class="row"><label>Artist: </label><div id="npArtist"></div></div>
+                <div class="row"><label>Album: </label><div id="npAlbum"></div></div>
               </div>
               <div class="col-sm-6">
-                <img id="npPic" />
+                <div class="npPic-wrapper"><img id="npPic" /></div>
               </div>
             </div>
             <div id="audiowrap">
@@ -149,9 +147,7 @@
             if((index - 1) > -1) {
               index--;
               loadTrack(index);
-              if(playing) {
-                audio.play();
-              }
+              audio.play();
             } else {
               audio.pause();
               index = 0;
@@ -162,9 +158,7 @@
             if((index + 1) < trackCount) {
               index++;
               loadTrack(index);
-              if(playing) {
-                audio.play();
-              }
+              audio.play();
             } else {
               audio.pause();
               index = 0;
@@ -206,17 +200,23 @@
               if (i == 0){
                 loadTrack(0);
               }
-              $('#plwrap li[data-song-id="'+v+'"]').html('<a href="javascript:void(0)">'+tracks[i].name+' - '+tracks[i].artist+'</a>');
+              $('#plwrap li[data-song-id="'+v+'"]').html('<a>'+tracks[i].name+' - '+tracks[i].artist+'</a>');
+              $('#plwrap li a').click(function(){
+                var id = parseInt($(this).parent().index());
+                if(id !== index){
+                  playTrack(id);
+                }
+              });
             });
           });
         };
         initPlaylist(songIdList, tracks);
-        $('#plwrap').on('click', '#plwrap li a', function() {
-          var id = parseInt($(this).index());
-          if(id !== index){
-            playTrack(id);
-          }
-        });
+        // $('#plwrap').on('click', '#plwrap li a', function() {
+        //   var id = parseInt($(this).index());
+        //   if(id !== index){
+        //     playTrack(id);
+        //   }
+        // });
       }
     </script>
     <script>

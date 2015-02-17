@@ -204,6 +204,10 @@ ul.tags li:last-child {
 .block {
     padding-top: 100px;
     padding-bottom: 100px;
+    @media (max-width: 768px){
+    	padding-top: 50px;
+    	padding-bottom: 50px;
+    }
 }
 
 /** Header **/
@@ -1828,21 +1832,48 @@ header #logo h1{
   margin-bottom: 20px;
   line-height: 1.5;
 }
-#npTitle{
-  font-size: 50px;
+#npTitle,
+#npArtist,
+#npAlbum{
+  margin-left: 10px;
+  font-size: 20px;
+  display: inline;
+}
+.npPic-wrapper{
+  height: 300px;
 }
 #npPic{
-  max-height: 300px;
   max-width: 100%;
-}
-#npArtist{
-  margin-bottom: 20px;
-  font-size: 25px;
+  max-height: 300px;
+  text-align: center;
 }
 #audiowrap{
   margin-bottom: 20px;
 }
-#plwrap li{
-  font-size: 25px;
-  line-height: 1.5;
+#plwrap{
+	width: 300px;
+	max-width: 100%;
+	margin: 0 auto;
+	text-align: left;
+	li{
+	  font-size: 20px;
+	  line-height: 1.5;
+	  a{
+	  	&:hover{
+	  		cursor: pointer;
+	  	}
+	  }
+	}
+}
+#extraControls{
+	margin-top: 20px;
+	.ctrlbtn{
+		padding: 8px 20px;
+		&#btnPrev{
+			margin-right: 20px;
+		}
+		&#btnNext{
+			margin-left: 20px;
+		}
+	}
 }
