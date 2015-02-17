@@ -1837,7 +1837,11 @@ header #logo h1{
 #npAlbum{
   margin-left: 10px;
   font-size: 20px;
-  display: inline;
+  display: inline-block;
+  @media (min-width: 767px){
+  	margin-top: 40px;
+  	font-size: 25px;
+  }
 }
 .npPic-wrapper{
   height: 300px;
